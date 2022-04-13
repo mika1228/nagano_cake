@@ -9,9 +9,17 @@ Rails.application.routes.draw do
   }
   
   namespace :admin do
+    root to: "homes#top", as: "top"
+    
     resources :genres, only: [:create, :index, :edit]
     patch 'genres/:id' => 'genres#update', as: 'update_genre'
+    
     resources :items
+    patch 'items/:id' => 'items#update', as: 'update_item'
+    
+    resources :customers, only: [:index, :show, :edit]
+    patch 'customers/:id'=> 'customers#update', as: 'update_customer'
+    
   end
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
