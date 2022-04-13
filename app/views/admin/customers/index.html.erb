@@ -14,7 +14,8 @@
     <% @customers.each do |customer| %>
     <tr>
       <th><%= customer.id %></th>
-      <th><%= link_to customer.name, admin_customer_path(customer.id) %></th>
+      <th><%= link_to customer.full_name, admin_customer_path(customer.id) %></th>
+      <th><%= customer.email %></th>
       <th><%= customer.is_active ? "有効" : "退会" %></th>
     </tr>
     <% end %>
