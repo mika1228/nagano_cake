@@ -25,6 +25,13 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get "/about" => "homes#about", as: "about"
+    
+    resources :customers, only: [:show, :edit]
+    patch 'customers/:id' => 'customers#update', as: 'update_customer'
+    
+    resources :items, only: [:index, :show]
+    
+    resources :cart_items, only: [:index, :create]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
