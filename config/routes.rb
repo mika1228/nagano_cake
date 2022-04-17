@@ -28,10 +28,18 @@ Rails.application.routes.draw do
     
     resources :customers, only: [:show, :edit]
     patch 'customers/:id' => 'customers#update', as: 'update_customer'
+    get  'customers/:id/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
+    patch 'customers/:id/withdraw' => 'customers#withdraw', as: 'withdraw'
     
     resources :items, only: [:index, :show]
     
     resources :cart_items, only: [:index, :create]
+    
+    resources :addresses, only: [:index, :create, :edit, :destroy]
+    patch 'addresses/:id' => 'addresses#update', as: 'update_address'
+    
+    resources :items, only: [:index, :show]
+    
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

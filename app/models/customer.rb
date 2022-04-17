@@ -8,4 +8,6 @@ class Customer < ApplicationRecord
     self.last_name + " " + self.first_name
   end
   
+
+
 end

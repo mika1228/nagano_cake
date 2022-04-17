@@ -1,6 +1,6 @@
 <h3>マイページ</h3>
 
-
+登録情報<%= link_to "編集する", edit_customer_path(current_customer) %>
 
 <table class="table table-bordered">
   <tbody>
@@ -35,3 +35,5 @@
     </tr>
   </tbody>
 </table>
+
+配送先<%= link_to "一覧を見る", addresses_path %>
