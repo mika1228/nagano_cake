@@ -32,13 +32,13 @@ Rails.application.routes.draw do
     patch 'customers/:id/withdraw' => 'customers#withdraw', as: 'withdraw'
     
     resources :items, only: [:index, :show]
+    post 'items/:id' => 'items#show'
     
-    resources :cart_items, only: [:index, :create]
+    resources :cart_items, only: [:index, :create, :destroy]
+    patch 'cart_items/:id' => 'cart_items#update', as: 'update_cart_item'
     
     resources :addresses, only: [:index, :create, :edit, :destroy]
     patch 'addresses/:id' => 'addresses#update', as: 'update_address'
-    
-    resources :items, only: [:index, :show]
     
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

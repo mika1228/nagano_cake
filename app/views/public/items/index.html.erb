@@ -1,1 +1,26 @@
-<h4>商品一覧</h4>
+<h4><strong>商品一覧</strong></h4>
+
+<div class="container">
+  <div class="row">
+
+    <tbody>
+      <% @items.each do |item| %>
+        <div class="col-lg-3 col md-6 mb-4">
+          <tr>
+            <p>
+              <%= link_to item_path(item.id) do %>
+                <%= image_tag item.image, size: "200x150" %>
+              <% end %>
+            </p>
+            <p><%= item.name %></p>
+            <p><%= item.add_tax_price.to_s(:delimited) %>円</p>
+          </tr>
+        </div>
+      <% end %>
+    
+    </tbody>
+
+  </div>
+</div>
+
+<%= paginate @page_items %>
