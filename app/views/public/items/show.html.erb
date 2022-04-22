@@ -11,7 +11,7 @@
       <%= f.hidden_field :item_id, :value => @item.id %>
     <% end %>
     <%= f.hidden_field :item_id, :value => @item.id %>
-    <%= f.select :amount, *[1..10] %>
+    <%= f.select :amount, *[1..10], :include_blank => "個数選択" %>
     <%= f.submit "カートに入れる", class: "btn btn-success btn-sm" %>
   <% end %>
 </div>
