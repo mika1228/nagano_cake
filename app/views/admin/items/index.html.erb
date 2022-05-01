@@ -1,22 +1,29 @@
 <div class="container">
-  <div class="row">
+  <div class="row justify-content-between">
+    
     <div class="col-2 ml-5">
-      
-    <div class="mt-5 mb-4 bg-light text-dark text-center">
-      <h5>商品一覧</h5>
+      <div class="mt-5 mb-4 bg-light text-dark text-center">
+        <h5><strong>商品一覧</strong></h5>
+      </div>
     </div>
     
-    <%= link_to new_admin_item_path %>
-    <i class="fa-light fa-circle-plus"></i>
-    
+    <div class="col-1">
+      <div class="mt-5 mb-4">
+      <%= link_to new_admin_item_path, class: "text-secondary" do %>
+      <i class="fas fa-plus-circle fa-2x"></i>
+      <% end %>
+      </div>
+    </div>
+        
     </div>
   </div>
 </div>
+    
 
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-11">
-      
+
       <table class="table table-borderless border-top border-bottom">
         <thead class="thead-light">
           <tr>

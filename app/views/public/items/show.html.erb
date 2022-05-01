@@ -1,17 +1,35 @@
-<div>
-  <%= image_tag @item.image, size: "350x250" %>
-  <h5><strong><%= @item.name %></h5></strong>
-  <p><%= @item.introduction %></p>
+<div class="mt-5"></div>
 
-  <h5>￥<%= @item.add_tax_price.to_s(:delimited) %>円<small>（税込）</small></h5>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    
+    <div class="col-3 offset-2">
+      <%= image_tag @item.image, size: "300x200" %>
+    </div>
+
+    <div class="col-6 offset-1">
+      <h4><strong><%= @item.name %></strong></h4>
+
+      <div class="mb-5">
+        <strong><%= @item.introduction %></strong>
+      </div>
+
+      <div class="mb-4">
+        <strong>￥<%= @item.add_tax_price.to_s(:delimited) %></strong><small>（税込）</small>
+      </div>
 
 
-  <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
-    <% if customer_signed_in? %>
-      <%= f.hidden_field :item_id, :value => @item.id %>
-    <% end %>
-    <%= f.hidden_field :item_id, :value => @item.id %>
-    <%= f.select :amount, *[1..10], :include_blank => "個数選択" %>
-    <%= f.submit "カートに入れる", class: "btn btn-success btn-sm" %>
-  <% end %>
+      <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+        <% if customer_signed_in? %>
+          <%= f.hidden_field :item_id, :value => @item.id %>
+        <% end %>
+        <%= f.hidden_field :item_id, :value => @item.id %>
+        <%= f.select :amount, *[1..10], :include_blank => "個数選択" %>
+        　　　<%= f.submit "カートに入れる", class: "btn btn-success btn-sm" %>
+      <% end %>
+
+    </div>
+
+
+  </div>
 </div>

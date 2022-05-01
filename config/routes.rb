@@ -41,9 +41,9 @@ Rails.application.routes.draw do
     resources :addresses, only: [:index, :create, :edit, :destroy]
     patch 'addresses/:id' => 'addresses#update', as: 'update_address'
 
-    resources :orders, only: [:new, :create, :index, :show]
     post 'orders/confirm' => 'orders#confirm'
     get 'orders/thanks' => 'orders#thanks'
+    resources :orders, only: [:new, :create, :index, :show]
 
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

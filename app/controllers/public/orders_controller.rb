@@ -3,17 +3,39 @@ class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
   end
-  
+
   def confirm
     @cart_items = CartItem.all
     @order = Order.new(order_params)
-    
-    
-    @order = Order.new(order_params)
-    @address = Address.find(params[:order][:address_id])
-    @order.postal_code = @address.postal_code
-    @order.address = @address.address
-    @order.name = @address.name
+    @order.customer_id = current_customer.id
+    @order.payment_method = params[:order][:payment_method]
+    @shipping_cost = "800"
+
+    if params[:order][:address_id] == "0"
+      @order.postal_code = current_customer.postal_code
+      @order.address = current_customer.address
+      @order.name = current_customer.first_name + current_customer.last_name
+    elsif params[:order][:address_id] == "1"
+      @order = Order.new(order_params)
+      @address = Address.find(params[:order][:address_id])
+      @order.postal_code = @address.postal_code
+      @order.address = @address.address
+      @order.name = @address.name
+    elsif params[:order][:address_id] == "2"
+      @address = current_customer.address.new
+      @address.address = params[:order][:address]
+      @address.name = params[:order][:name]
+      @address.postal_code = params[:order][:postal_code]
+      @address.customer_id = current_customer.id
+      if @address.save
+      @order.postal_code = @address.postal_code
+      @order.name = @address.name
+      @order.city = @address.address
+      else
+       render 'new'
+      end
+    end
+
   end
 
   def create
@@ -41,9 +63,9 @@ class Public::OrdersController < ApplicationController
 
   def show
   end
-  
+
   private
-  
+
   def order_params
     params.require(:order).permit(:payment_method, :postal_code, :address, :name)
   end
