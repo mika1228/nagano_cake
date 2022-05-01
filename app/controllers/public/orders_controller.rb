@@ -17,7 +17,7 @@ class Public::OrdersController < ApplicationController
     if params[:order][:address_number] == "0"
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
-      @order.name = current_customer.first_name + current_customer.last_name
+      @order.name = current_customer.last_name + current_customer.first_name
     elsif params[:order][:address_number] == "1"
       @order = Order.new(order_params)
       @address = Address.find(params[:order][:address_id])
@@ -42,19 +42,19 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    cart_items = current_customer.cart_items.all
-    @order = current_customer.orders.new(order_params)
+    @order = Order.new(order_params)
+    @order.customer_id = current_customer.id
     if @order.save
-      cart_items.each do |cart|
-        order_item = OrderItem.new
-        order_item.item_id = cart.item_id
-        order_item.order_id = @order.id
-        order_item.order_quantity = cart.quantity
-        order_item.order_price = cart.item.price
-        order_item.save
+      @cart_items = current_customer.cart_items
+      @cart_items.each do |cart_item|
+        order_detail = OrderDetail.new(order_id: @order.id)
+        order_detail.price = cart_item.item.price
+        order_detail.amount = cart_item.amount
+        order_detail.item_id = cart_item.item_id
+        order_detail.save
       end
+      @cart_items.destroy_all
       redirect_to orders_thanks_path
-      cart_items.destroy_all
     else
       @order = Order.new(order_params)
       render :new

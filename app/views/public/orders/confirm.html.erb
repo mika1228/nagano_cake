@@ -65,7 +65,7 @@
 
     <div class="row ml-1">
       <label><strong>支払方法</strong></label>
-      　<div><%= @order.payment_method %></div>
+      　<div><%= @order.payment_method_i18n %></div>
     </div>
     <div class="row ml-1">
       <label><strong>お届け先</strong></label>
@@ -77,7 +77,7 @@
 
   <div class="row">
     <div class="mx-auto mt-5">
-      <%= form_with model: @order_detail do |f| %>
+      <%= form_with model: @order do |f| %>
         <%= f.hidden_field :shipping_cost, :value => @order.shipping_cost %>
         <%= f.hidden_field :total_payment, :value => (@total + 800) %>
         <%= f.hidden_field :payment_method, :value => @order.payment_method %>
