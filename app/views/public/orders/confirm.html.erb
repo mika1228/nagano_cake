@@ -1,16 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col-2 ml-5">
-    
+
     <div class="mt-5 mb-3 bg-light text-dark text-center">
       <h5><strong>注文情報確認</strong></h5>
     </div>
-    
+
     </div>
   </div>
 
   <div class="row">
-    
+
     <div class="col-8">
       <table class="table table-bordered">
         <thead>
@@ -21,7 +21,7 @@
             <th>小計</th>
           </tr>
         </thead>
-  
+
         <tbody>
           <% @total = 0 %>
           <% @cart_items.each do |cart_item| %>
@@ -39,7 +39,7 @@
         </tbody>
       </table>
     </div>
-    
+
     <div class="col-4">
       <table class="table table-bordered">
         <tbody>
@@ -47,12 +47,12 @@
             <th class="table-active">送料</th>
             <td><%= @shipping_cost %></td>
           </tr>
-    
+
           <tr>
             <th class="table-active">商品合計</th>
             <td><%= @total.to_s(:delimited) %></td>
           </tr>
-    
+
           <tr>
             <th class="table-active">請求金額</th>
             <td><%= (@total + 800).to_s(:delimited) %></td>
@@ -60,9 +60,9 @@
         </tbody>
       </table>
     </div>
-    
+
   </div>
-  
+
     <div class="row ml-1">
       <label><strong>支払方法</strong></label>
       　<div><%= @order.payment_method %></div>
@@ -74,12 +74,20 @@
         　<%= @order.name %>
       </div>
     </div>
-  
+
   <div class="row">
     <div class="mx-auto mt-5">
-      <%= link_to "注文を確定する", orders_thanks_path, class: "btn btn-success" %>
+      <%= form_with model: @order_detail do |f| %>
+        <%= f.hidden_field :shipping_cost, :value => @order.shipping_cost %>
+        <%= f.hidden_field :total_payment, :value => (@total + 800) %>
+        <%= f.hidden_field :payment_method, :value => @order.payment_method %>
+        <%= f.hidden_field :postal_code, :value => @order.postal_code %>
+        <%= f.hidden_field :address, :value => @order.address %>
+        <%= f.hidden_field :name, :value => @order.name %>
+        <%= f.submit "注文を確定する", class: "btn btn-success" %>
+      <% end %>
     </div>
   </div>
-    
+
 </div>
 

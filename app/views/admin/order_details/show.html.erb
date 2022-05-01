@@ -1,1 +1,45 @@
-<h3>注文履歴詳細</h3>
+<div class="container">
+
+  <div class="row">
+    <div class="col-2 ml-5">
+
+    <div class="mt-5 mb-3 bg-light text-dark text-center">
+      <h5>注文履歴詳細</h5>
+    </div>
+    
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-9 ml-5">
+      
+      <div class="form-group row">
+        <label class="col-3">購入者</label>
+        <div class="col-6"><%= @order.customer.full_name %></div>
+      </div>
+  
+      <div class="form-group row">
+        <label class="col-3">注文日</label>
+        <div class="col-6"><%= @order.created_at.to_s(:datetime) %></div>
+      </div>
+  
+      <div class="form-group row">
+        <label class="col-3">配送先</label>
+        <div class="col-6">
+          〒<%= @order.postal_code %> <%= @order.address %><br>
+        　<%= @order.name %>
+        </div>
+      </div>
+  
+      <div class="form-group row">
+        <label class="col-3">支払方法</label>
+        <div class="col-6"><%= @order.payment_method %></div>
+      </div>
+      
+      <div class="form-group row">
+        <label class="col-3">注文ステータス</label>
+        <div class="col-6"><%= @order.status %></div>
+      </div>
+      
+    </div>
+  </div>

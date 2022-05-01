@@ -1,16 +1,13 @@
 <div class="container">
+  
   <div class="row">
     <div class="mt-5 ml-5 mb-3">
-
-    <h4><strong>商品一覧</strong><small>(全<%= Item.all.count %>件)</small></h4>
-
+      <h4><strong>商品一覧</strong><small>(全<%= Item.all.count %>件)</small></h4>
     </div>
   </div>
-</div>
 
-<div class="container">
+
   <div class="row">
-
     <tbody>
       <% @items.each do |item| %>
         <div class="col-lg-3 col-md-6 mb-3">
@@ -25,16 +22,14 @@
           </tr>
         </div>
       <% end %>
-    
     </tbody>
-
   </div>
-</div>
 
-<div class="container">
+
   <div class="row">
     <div class="mx-auto">
       <%= paginate @items %>
     </div>
   </div>
+
 </div>

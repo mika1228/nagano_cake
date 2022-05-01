@@ -1,27 +1,30 @@
 class Public::OrdersController < ApplicationController
+  before_action :authenticate_customer!
 
   def new
     @order = Order.new
+    @customer = current_customer
+    @addresses = current_customer.addresses
   end
 
   def confirm
-    @cart_items = CartItem.all
+    @cart_items = current_customer.cart_items
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.payment_method = params[:order][:payment_method]
     @shipping_cost = "800"
 
-    if params[:order][:address_id] == "0"
+    if params[:order][:address_number] == "0"
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
       @order.name = current_customer.first_name + current_customer.last_name
-    elsif params[:order][:address_id] == "1"
+    elsif params[:order][:address_number] == "1"
       @order = Order.new(order_params)
       @address = Address.find(params[:order][:address_id])
       @order.postal_code = @address.postal_code
       @order.address = @address.address
       @order.name = @address.name
-    elsif params[:order][:address_id] == "2"
+    elsif params[:order][:address_number] == "2"
       @address = current_customer.address.new
       @address.address = params[:order][:address]
       @address.name = params[:order][:name]
@@ -30,7 +33,7 @@ class Public::OrdersController < ApplicationController
       if @address.save
       @order.postal_code = @address.postal_code
       @order.name = @address.name
-      @order.city = @address.address
+      @order.address = @address.address
       else
        render 'new'
       end
@@ -50,7 +53,7 @@ class Public::OrdersController < ApplicationController
         order_item.order_price = cart.item.price
         order_item.save
       end
-      redirect_to orders_confirm_path
+      redirect_to orders_thanks_path
       cart_items.destroy_all
     else
       @order = Order.new(order_params)
@@ -59,9 +62,12 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
+    @orders = current_customer.orders.all
   end
 
   def show
+    @order = Order.find(params[:id])
+    @order_details = @order.order_details.all
   end
 
   private

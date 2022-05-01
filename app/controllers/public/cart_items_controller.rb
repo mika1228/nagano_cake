@@ -2,11 +2,12 @@ class Public::CartItemsController < ApplicationController
   before_action :authenticate_customer!
 
   def index
-    @cart_items = CartItem.all
+    @cart_items = current_customer.cart_items
   end
 
   def create
     @cart_item = CartItem.new(cart_item_params)
+    @cart_item.customer_id = current_customer.id
     if CartItem.find_by(item_id: params[:cart_item][:item_id]).present?
       cart_item = CartItem.find_by(item_id: params[:cart_item][:item_id])
       cart_item.amount += params[:cart_item][:amount].to_i
@@ -33,7 +34,6 @@ class Public::CartItemsController < ApplicationController
   end
 
   def destroy_all
-    @cart_item = CartItem.all
     current_customer.cart_items.destroy_all
     redirect_to cart_items_path
   end

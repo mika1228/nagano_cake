@@ -19,6 +19,9 @@ Rails.application.routes.draw do
 
     resources :customers, only: [:index, :show, :edit]
     patch 'customers/:id'=> 'customers#update', as: 'update_customer'
+    
+    resources :order_details, only: [:show]
+    patch 'order_details/:id' => 'order_details#update', as: 'update_order_detail'
 
   end
 
@@ -34,9 +37,9 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :show]
     post 'items/:id' => 'items#show'
 
+    delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'cart_items_destroy_all'
     resources :cart_items, only: [:index, :create, :destroy]
     patch 'cart_items/:id' => 'cart_items#update', as: 'update_cart_item'
-    delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all_cart_items'
 
     resources :addresses, only: [:index, :create, :edit, :destroy]
     patch 'addresses/:id' => 'addresses#update', as: 'update_address'

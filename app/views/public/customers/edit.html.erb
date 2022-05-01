@@ -8,10 +8,9 @@
     
     </div>
   </div>
-</div>
 
-<%= form_with model: [:public,@customer], url: update_customer_path(@customer.id), method: :patch  do |f| %>
-  <div class="container">
+
+  <%= form_with model: [:public,@customer], url: update_customer_path(@customer.id), method: :patch  do |f| %>
     <div class="row">
       <div class="col-12 ml-3">
   
@@ -69,6 +68,6 @@
       
       </div>
     </div>
-  </div>
-
-<% end %>
+  <% end %>
+  
+ </div>
