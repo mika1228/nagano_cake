@@ -1,4 +1,5 @@
 <div class="container">
+  
   <div class="row">
     <div class="col-3 ml-5">
       
@@ -8,9 +9,8 @@
     
     </div>
   </div>
-</div>
     
-<div class="container">
+
   <div class="row">
     <div class="col-9 ml-5">
     
@@ -51,7 +51,13 @@
   
       <div class="form-group row">
         <label class="col-3">会員ステータス</label>
-        <div class="col-6"><%= @customer.is_active ? "有効" : "退会" %></div>
+        <div class="col-6">
+          <% if @customer.is_deleted %>
+            <p class="text-secondary"><strong>退会</strong></p>
+          <% else %>
+            <p class="text-success"><strong>有効</strong></p>
+          <% end %>
+        </div>
       </div>
   
       <div class="form-group row">
@@ -64,4 +70,5 @@
 
     </div>
   </div>
+
 </div>

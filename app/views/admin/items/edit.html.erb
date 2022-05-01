@@ -1,4 +1,5 @@
 <div class="container">
+  
   <div class="row">
     <div class="col-2 ml-5">
 
@@ -8,12 +9,11 @@
 
     </div>
   </div>
-</div>
 
-<%= form_with model: [:admin,@item], url: admin_update_item_path(@item.id), method: :patch  do |f| %>
-  <div class="container">
+
+  <%= form_with model: [:admin,@item], url: admin_update_item_path(@item.id), method: :patch  do |f| %>
     <div class="row">
-      <div class="col-6 offset-2">
+      <div class="offset-2">
 
         <div class="form-group row">
           <label class="col-4">商品画像</label>
@@ -59,16 +59,16 @@
             <%= f.label :is_active, "販売停止中" %>
           </div>
         </div>
-
-        <div class="form-group row">
-          <label class="col-4"></label>
-          <div class="col-8">
-            <%= f.submit "変更を保存", class: "btn btn-success w-50" %>
-          </div>
-        </div>
-
       <div>
     </div>
-  </div>
-<% end %>
+    
+    <div class="row">
+      <div class="mx-auto">
+        <%= f.submit "変更を保存", class: "btn btn-success" %>
+      </div>
+    </div>
+
+  <% end %>
+  
+</div>
 
