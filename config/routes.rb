@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     
     resources :order_details, only: [:show]
     patch 'order_details/:id' => 'order_details#update', as: 'update_order_detail'
+    
+    patch 'orders/:id' => 'orders#update', as: 'update_order'
 
   end
 

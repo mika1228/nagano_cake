@@ -18,7 +18,7 @@
       <%= link_to "退会しない", customer_path(current_customer), class: 'text-light' %>
     </button>
     <button type="button" class="btn btn-danger btn-sm w-25">
-      <%= link_to "退会する", withdraw_path, method: :patch, class: 'text-light' %>
+      <%= link_to "退会する", withdraw_path, method: :patch, class: 'text-light', method: :delete, "data-confirm" => "本当に退会しますか？" %>
     </button>
     
       </div>

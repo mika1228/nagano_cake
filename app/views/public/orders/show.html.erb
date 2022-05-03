@@ -31,12 +31,12 @@
 
           <tr>
             <th class="table-active">支払方法</th>
-            <td><%= @order.payment_method %></td>
+            <td><%= @order.payment_method_i18n %></td>
           </tr>
 
           <tr>
             <th class="table-active">ステータス</th>
-            <td><%=  %></td>
+            <td><%= @order.status_i18n %></td>
           </tr>
         </tbody>
       </table>
@@ -49,7 +49,7 @@
         <tbody>
           <tr>
             <th class="table-active">商品合計</th>
-            <td></td>
+            <td><%= (@order.total_payment - @order.shipping_cost).to_s(:delimited) %></td>
           </tr>
 
           <tr>
@@ -58,8 +58,8 @@
           </tr>
 
           <tr>
-            <th class="table-active">ご請求金額</th>
-            <td><%= @order.total_payment %></td>
+            <th class="table-active"><strong>ご請求金額</strong></th>
+            <td><%= @order.total_payment.to_s(:delimited) %></td>
           </tr>
         </tbody>
       </table>
@@ -83,10 +83,10 @@
         <tbody>
           <% @order_details.each do |order_detail| %>
           <tr>
-            <th><%= order_detail.item_id %></th>
+            <th><%= order_detail.item.name %></th>
             <th><%= order_detail.item.add_tax_price.to_s(:delimited) %></th>
             <th><%= order_detail.amount %></th>
-            <th><%= order_detail.subtotal.to_s(:delimited) %></th>
+            <th><%= (order_detail.item.add_tax_price * order_detail.amount).floor.to_s(:delimited) %></th>
           </tr>
           <% end %>
         </tbody>

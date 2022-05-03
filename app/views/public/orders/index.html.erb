@@ -1,16 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col-2 ml-5">
-    
+
     <div class="mt-5 mb-3 bg-light text-dark text-center">
       <h5>注文履歴一覧</h5>
     </div>
-    
+
     </div>
   </div>
-  
+
   <div class="row">
-    
+
     <table class="table table-bordered table-sm">
       <thead>
         <tr class="table-active">
@@ -34,10 +34,10 @@
         　</th>
           <th>
             <% order.order_details.each do |order_detail| %>
-              <%= order_detail.item_id %>
+              <%= order_detail.item.name %>
             <% end %>
           </th>
-          <th><%= order.total_payment.to_s(:delimited) %>円</th>
+          <th><%= order.total_payment %>円</th>
           <th><%= order.status_i18n %></th>
           <th>
             <%= link_to "表示する", order_path(order.id), class: "btn btn-primary btn-sm" %>
@@ -46,7 +46,13 @@
         <% end %>
       </tbody>
     </table>
-  
+
+  </div>
+
+  <div class="row">
+    <div class="mx-auto">
+      <%= paginate @orders %>
+    </div>
   </div>
 
 </div>

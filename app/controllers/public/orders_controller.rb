@@ -25,7 +25,7 @@ class Public::OrdersController < ApplicationController
       @order.address = @address.address
       @order.name = @address.name
     elsif params[:order][:address_number] == "2"
-      @address = current_customer.address.new
+      @address = Address.new(address_params)
       @address.address = params[:order][:address]
       @address.name = params[:order][:name]
       @address.postal_code = params[:order][:postal_code]
@@ -56,13 +56,12 @@ class Public::OrdersController < ApplicationController
       @cart_items.destroy_all
       redirect_to orders_thanks_path
     else
-      @order = Order.new(order_params)
       render :new
     end
   end
 
   def index
-    @orders = current_customer.orders.all
+    @orders = current_customer.orders.all.page(params[:page]).per(6).order('created_at DESC')
   end
 
   def show
@@ -73,7 +72,12 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name)
+    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :total_payment, :shipping_cost)
   end
+
+  def address_params
+    params.require(:order).permit(:customer_id, :postal_code, :address, :name)
+  end
+
 
 end
